@@ -1,5 +1,7 @@
 package models.impl;
 
+import terrain.Loft;
+import models.AbsNourriture;
 import models.Neuneu;
 
 public class NeuneuErratique extends Neuneu {
@@ -9,8 +11,8 @@ public class NeuneuErratique extends Neuneu {
 	public static final int[] ARRAY_DEPLACEMENTS_X = new int[] { 0, 1, 1, 1, 0, -1, -1, -1 };
 	public static final int[] ARRAY_DEPLACEMENTS_Y = new int[] { -1, -1, 0, 1, 1, 1, 0, -1 };
 
-	public NeuneuErratique(int energie, int posX, int posY) {
-		super(energie, posX, posY);
+	public NeuneuErratique(Loft loft, int energie, int posX, int posY) {
+		super(loft, energie, posX, posY);
 	}
 
 	@Override
@@ -32,6 +34,24 @@ public class NeuneuErratique extends Neuneu {
 				this.moveTo(posX + dx, posY + dy);
 				return;
 			}
+		}
+	}
+	
+	@Override
+	public void manger() {
+		// Recherche de nourriture sur la case
+		for(AbsNourriture nourr : loft.getCase(posX, posY).getContenu()) {
+			if(this.peutManger(nourr)) {
+				
+				int pourcentageConsomme = (int) (Math.random() * 100);
+				if(pourcentageConsomme > nourr.getPourcentageConsommation())
+					pourcentageConsomme = nourr.getPourcentageConsommation();
+				
+				this.energie += nourr.seFaireManger(pourcentageConsomme); // Consommation
+				
+				return; // On ne mange qu'une chose par tour
+			}
+				
 		}
 	}
 

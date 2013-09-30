@@ -10,15 +10,32 @@ import models.impl.Nourriture;
 public abstract class Neuneu extends AbsNourriture {
 
 	public static final int ENERGIE_DEPART = 100;
-	public static final int ENERGIE_REPRODUCTION = 40;
+	public static final int ENERGIE_REPRODUCTION = 60;
 	
-	public Neuneu(int energie, int posX, int posY) {
-		super(energie, posX, posY);
+	public Neuneu(Loft loft, int energie, int posX, int posY) {
+		super(loft, energie, posX, posY);
+		
+		// Ajout au plateau
+		loft.addNeuneu(this);
 	}
 	
 	public abstract void seDeplacer();
 	
-	public Neuneu seReproduire(Neuneu neuneu) {
+	public abstract void manger();
+	
+	public Neuneu seReproduire() {
+		
+		if(energie > ENERGIE_REPRODUCTION) {
+			
+			Neuneu neuneuReproduction = loft.getCase(posX, posY).getFirstNeuneu(this, ENERGIE_REPRODUCTION);
+			if(neuneuReproduction != null)
+				return this.seReproduireAvec(neuneuReproduction);
+		}
+		
+		return null;
+	}
+	
+	public Neuneu seReproduireAvec(Neuneu neuneu) {
 		
 		if(neuneu.posX != this.posX || neuneu.posY != this.posY)
 			throw new IllegalArgumentException("Reproduction impossible sur 2 cases différentes");
@@ -27,6 +44,14 @@ public abstract class Neuneu extends AbsNourriture {
 		this.energie -= ENERGIE_REPRODUCTION;
 		
 		return randomNeuneu(loft, ENERGIE_DEPART, posX, posY);
+	}
+	
+	@Override
+	public void supprimer() {
+		super.supprimer();
+		
+		// Suppression aussi de la liste des neuneus du loft
+		loft.exclureNeuneu(this);
 	}
 	
 	/**
@@ -40,9 +65,14 @@ public abstract class Neuneu extends AbsNourriture {
 	
 	public void cycleDeVie() {
 		
+		// Déplacement
+		this.seDeplacer();
 		
+		// Manger
+		this.manger();
 		
-		
+		// Se reproduire
+		this.seReproduire();
 	}
 	
 	/**
@@ -76,24 +106,20 @@ public abstract class Neuneu extends AbsNourriture {
 		
 		switch(typeNeuneu) {
 		case 0:
-			resNeuneu = new NeuneuErratique(energie, posX, posY);
+			resNeuneu = new NeuneuErratique(loft, energie, posX, posY);
 			break;
 		case 1:
-			resNeuneu = new NeuneuLapin(energie, posX, posY);
+			resNeuneu = new NeuneuLapin(loft, energie, posX, posY);
 			break;
 		case 2:
-			resNeuneu = new NeuneuVorace(energie, posX, posY);
+			resNeuneu = new NeuneuVorace(loft, energie, posX, posY);
 			break;
 		case 3:
-			resNeuneu = new NeuneuCannibale(energie, posX, posY);
+			resNeuneu = new NeuneuCannibale(loft, energie, posX, posY);
 			break;
 		default:
 			throw new IllegalStateException();	
 		}
-		
-		// Placement du neuneu dans le plateau
-		loft.getCase(posX, posY).getContenu().add(resNeuneu);
-		loft.addNeuneu(resNeuneu);
 		
 		return resNeuneu;
 	}

@@ -1,11 +1,12 @@
 package models.impl;
 
+import terrain.Loft;
 import models.AbsNourriture;
 
 public class NeuneuVorace extends NeuneuErratique {
 
-	public NeuneuVorace(int energie, int posX, int posY) {
-		super(energie, posX, posY);
+	public NeuneuVorace(Loft loft, int energie, int posX, int posY) {
+		super(loft, energie, posX, posY);
 	}
 	
 	@Override

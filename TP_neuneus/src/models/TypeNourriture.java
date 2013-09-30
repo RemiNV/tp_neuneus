@@ -16,4 +16,23 @@ public enum TypeNourriture {
 	public int getEnergie() {
 		return energie;
 	}
+	
+	public static TypeNourriture randomType() {
+		int tirage = (int) (Math.random() * 5);
+		
+		switch(tirage) {
+		case 0:
+			return CHOUX;
+		case 1:
+			return CAROTTES;
+		case 2:
+			return VODKA;
+		case 3:
+			return SAKE;
+		case 4:
+			return WHISKY;
+		default:
+			throw new IllegalStateException();	
+		}
+	}
 }
