@@ -37,9 +37,33 @@ public abstract class Neuneu extends AbsNourriture {
 		// TODO : écrire
 	}
 	
+	/**
+	 * Déplacement du neuneu. Ne pas accéder directement à posX et pos Y
+	 * (besoin de mettre à jour les cases)
+	 * @param x nouvelle position X
+	 * @param y nouvelle position Y
+	 */
+	public void moveTo(int x, int y) {
+		
+		loft.getCase(posX, posY).getContenu().remove(this);
+		
+		this.posX = x;
+		this.posY = y;
+		
+		loft.getCase(posX, posY).getContenu().add(this);
+	}
+	
 	
 	public static Neuneu randomNeuneu(int energie, int posX, int posY) {
 		// TODO : écrire
+	}
+	
+	public int getPosX() {
+		return posX;
+	}
+	
+	public int getPosY() {
+		return posY;
 	}
 	
 }
