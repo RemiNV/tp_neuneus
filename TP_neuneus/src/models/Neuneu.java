@@ -1,5 +1,10 @@
 package models;
 
+import terrain.Loft;
+import models.impl.NeuneuCannibale;
+import models.impl.NeuneuErratique;
+import models.impl.NeuneuLapin;
+import models.impl.NeuneuVorace;
 import models.impl.Nourriture;
 
 public abstract class Neuneu extends AbsNourriture {
@@ -21,7 +26,7 @@ public abstract class Neuneu extends AbsNourriture {
 		neuneu.energie -= ENERGIE_REPRODUCTION;
 		this.energie -= ENERGIE_REPRODUCTION;
 		
-		return randomNeuneu(ENERGIE_DEPART, posX, posY);
+		return randomNeuneu(loft, ENERGIE_DEPART, posX, posY);
 	}
 	
 	/**
@@ -34,7 +39,10 @@ public abstract class Neuneu extends AbsNourriture {
 	}
 	
 	public void cycleDeVie() {
-		// TODO : écrire
+		
+		
+		
+		
 	}
 	
 	/**
@@ -54,8 +62,40 @@ public abstract class Neuneu extends AbsNourriture {
 	}
 	
 	
-	public static Neuneu randomNeuneu(int energie, int posX, int posY) {
-		// TODO : écrire
+	/**
+	 * Créé un Neuneu au hasard et l'ajoute au plateau de jeu
+	 * @param energie Energie du neuneu
+	 * @param posX Position x
+	 * @param posY Position y
+	 * @return Un neuneu initialisé et inséré dans le plateau de jeu
+	 */
+	public static Neuneu randomNeuneu(Loft loft, int energie, int posX, int posY) {
+		int typeNeuneu = (int) (Math.random() * 4);
+		
+		Neuneu resNeuneu;
+		
+		switch(typeNeuneu) {
+		case 0:
+			resNeuneu = new NeuneuErratique(energie, posX, posY);
+			break;
+		case 1:
+			resNeuneu = new NeuneuLapin(energie, posX, posY);
+			break;
+		case 2:
+			resNeuneu = new NeuneuVorace(energie, posX, posY);
+			break;
+		case 3:
+			resNeuneu = new NeuneuCannibale(energie, posX, posY);
+			break;
+		default:
+			throw new IllegalStateException();	
+		}
+		
+		// Placement du neuneu dans le plateau
+		loft.getCase(posX, posY).getContenu().add(resNeuneu);
+		loft.addNeuneu(resNeuneu);
+		
+		return resNeuneu;
 	}
 
 }

@@ -15,10 +15,17 @@ public abstract class AbsNourriture {
 		this.posY = posY;
 	}
 	
-	public void manger(int pourcentageConsomme) {
+	/**
+	 * Mange la nourriture et indique l'énergie obtenue
+	 * @param pourcentageConsomme Pourcentage de nourriture à consommer. Doit être <= au pourcentage restant
+	 * @return Energie obtenue en mangeant la nourriture (fonction de l'énergie de la nourriture et du pourcentage consommé)
+	 */
+	public int seFaireManger(int pourcentageConsomme) {
 		this.pourcentageConsomme -= pourcentageConsomme;
 		if(this.pourcentageConsomme < 0)
 			throw new IllegalArgumentException("Pourcentage de consommation supérieur à la limite");
+		
+		return (energie * pourcentageConsomme) / 100;
 	}
 	
 	public abstract void dessiner();
@@ -29,5 +36,9 @@ public abstract class AbsNourriture {
 	
 	public int getPosY() {
 		return posY;
+	}
+	
+	public int getPourcentageConsomme() {
+		return pourcentageConsomme;
 	}
 }

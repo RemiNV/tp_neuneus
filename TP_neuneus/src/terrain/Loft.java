@@ -40,6 +40,10 @@ public class Loft {
 		return cases[x][y];
 	}
 	
+	public void addNeuneu(Neuneu n) {
+		neuneus.add(n);
+	}
+	
 	/**
 	 * Fonction utilitaire indiquant si une case est valide
 	 * @param x Coordonnée X

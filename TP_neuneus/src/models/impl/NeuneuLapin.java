@@ -40,4 +40,9 @@ public class NeuneuLapin extends NeuneuErratique {
 		
 		return null;
 	}
+	
+	@Override
+	public void dessiner() {
+		// TODO : écrire
+	}
 }
