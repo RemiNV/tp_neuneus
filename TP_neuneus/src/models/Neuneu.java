@@ -57,13 +57,5 @@ public abstract class Neuneu extends AbsNourriture {
 	public static Neuneu randomNeuneu(int energie, int posX, int posY) {
 		// TODO : écrire
 	}
-	
-	public int getPosX() {
-		return posX;
-	}
-	
-	public int getPosY() {
-		return posY;
-	}
-	
+
 }

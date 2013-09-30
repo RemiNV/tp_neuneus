@@ -22,4 +22,12 @@ public abstract class AbsNourriture {
 	}
 	
 	public abstract void dessiner();
+	
+	public int getPosX() {
+		return posX;
+	}
+	
+	public int getPosY() {
+		return posY;
+	}
 }
