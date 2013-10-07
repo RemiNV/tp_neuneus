@@ -14,7 +14,7 @@ public class NeuneuLapin extends NeuneuErratique {
 
 	@Override
 	public void seDeplacer() {
-		Neuneu neuneuTrouve = chercherNeuneu();
+		Neuneu neuneuTrouve = chercherNeuneuReproduction();
 		
 		if(neuneuTrouve != null) {
 			this.energie -= NeuneuErratique.COUT_DEPLACEMENT;
@@ -30,14 +30,18 @@ public class NeuneuLapin extends NeuneuErratique {
 	 * Recherche un neuneu adjacent et le retourne
 	 * @return Le premier neuneu adjacent trouvé
 	 */
-	private Neuneu chercherNeuneu() {
+	private Neuneu chercherNeuneuReproduction() {
+		
+		if(this.energie <= Neuneu.ENERGIE_REPRODUCTION)
+			return null; // Pas de reproduction possible
+		
 		for(int i=0; i<NeuneuErratique.ARRAY_DEPLACEMENTS_X.length; i++) {
 			int x = posX + NeuneuErratique.ARRAY_DEPLACEMENTS_X[i];
 			int y = posY + NeuneuErratique.ARRAY_DEPLACEMENTS_Y[i];
 			
 			Neuneu neuneu;
 			
-			if(loft.caseValide(x,  y) && (neuneu = loft.getCase(x, y).getFirstNeuneu()) != null) {
+			if(loft.caseValide(x,  y) && (neuneu = loft.getCase(x, y).getFirstNeuneu(null, Neuneu.ENERGIE_REPRODUCTION + 1)) != null) {
 				return neuneu;
 			}
 		}

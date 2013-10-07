@@ -62,7 +62,7 @@ public class NeuneuErratique extends Neuneu {
 
 	@Override
 	public void dessiner(Graphics g, int x, int y) {
-		Image img = getImage("imgNeuneuVorace.png", Loft.TAILLE_CONTENU_CASE, Loft.TAILLE_CONTENU_CASE);
+		Image img = getImage("imgNeuneuErratique.png", Loft.TAILLE_CONTENU_CASE, Loft.TAILLE_CONTENU_CASE);
 		
 		g.drawImage(img, x, y, null);
 	}

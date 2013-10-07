@@ -23,13 +23,33 @@ public class Nourriture extends AbsNourriture {
 	
 	@Override
 	public void dessiner(Graphics g, int x, int y) {
-		Image img = getImage("imgNourriture.png", Loft.TAILLE_CONTENU_CASE, Loft.TAILLE_CONTENU_CASE);
+		
+		String filenameNourriture = null;
+		switch(type) {
+		case CHOUX:
+			filenameNourriture = "imgChou.png";
+			break;
+		case CAROTTES:
+			filenameNourriture = "imgCarotte.png";
+			break;
+		case VODKA:
+			filenameNourriture = "imgVodka.png";
+			break;
+		case SAKE:
+			filenameNourriture = "imgSake.png";
+			break;
+		case WHISKY:
+			filenameNourriture = "imgWhisky.png";
+			break;
+		}
+		
+		Image img = getImage(filenameNourriture, Loft.TAILLE_CONTENU_CASE, Loft.TAILLE_CONTENU_CASE);
 		
 		g.drawImage(img, x, y, null);
 	}
 	
 	@Override
 	public String toString() {
-		return "Nourriture";
+		return type.toString() + "(reste " + this.energie + ")";
 	}
 }

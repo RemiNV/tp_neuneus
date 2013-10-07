@@ -7,15 +7,11 @@ import terrain.Loft;
 public class Programme {
 
 	
-	public static final int MAX_ITERATIONS = 100;
-	
 	public static void main(String[] args) {
 		// Création du loft
 		Loft loft = new Loft(10, 10);
 		
 		loft.setVisible(true);
-		
-		
 		
 		// Ajout de quelques neuneus
 		Neuneu.randomNeuneu(loft, 100, 5, 5);
@@ -30,7 +26,7 @@ public class Programme {
 		loft.repaint();
 
 		// Boucle du programme
-		for(int i=0; i<MAX_ITERATIONS && loft.getNeuneus().size() > 0; i++) {
+		while(loft.getNeuneus().size() > 0) {
 			
 			Neuneu[] neuneusATraiter = new Neuneu[loft.getNeuneus().size()];
 			neuneusATraiter = loft.getNeuneus().toArray(neuneusATraiter);

@@ -1,16 +1,18 @@
 package models;
 
 public enum TypeNourriture {
-	CHOUX(150),
-	CAROTTES(100),
-	VODKA(300),
-	SAKE(200),
-	WHISKY(350);
+	CHOUX(150, "Chou"),
+	CAROTTES(100, "Carotte"),
+	VODKA(300, "Vodka"),
+	SAKE(200, "Sake"),
+	WHISKY(350, "Whisky");
 	
 	private int energie;
+	private String nom;
 	
-	TypeNourriture(int energie) {
+	TypeNourriture(int energie, String nom) {
 		this.energie = energie;
+		this.nom = nom;
 	}
 	
 	public int getEnergie() {
@@ -34,5 +36,10 @@ public enum TypeNourriture {
 		default:
 			throw new IllegalStateException();	
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return nom;
 	}
 }
