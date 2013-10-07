@@ -16,7 +16,7 @@ public abstract class Neuneu extends AbsNourriture {
 		super(loft, energie, posX, posY);
 		
 		// Ajout au plateau
-		loft.addNeuneu(this);
+		loft.getNeuneus().add(this);
 	}
 	
 	public abstract void seDeplacer();
@@ -51,7 +51,7 @@ public abstract class Neuneu extends AbsNourriture {
 		super.supprimer();
 		
 		// Suppression aussi de la liste des neuneus du loft
-		loft.exclureNeuneu(this);
+		loft.getNeuneus().remove(this);
 	}
 	
 	/**

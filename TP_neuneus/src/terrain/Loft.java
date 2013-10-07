@@ -20,10 +20,6 @@ public class Loft {
 		}
 	}
 	
-	public void exclureNeuneu(Neuneu neuneu) {
-		neuneus.remove(neuneu);
-	}
-	
 	public void dessiner() {
 		// TODO : remplir
 	}
@@ -40,9 +36,10 @@ public class Loft {
 		return cases[x][y];
 	}
 	
-	public void addNeuneu(Neuneu n) {
-		neuneus.add(n);
+	public LinkedHashSet<Neuneu> getNeuneus() {
+		return neuneus;
 	}
+	
 	
 	/**
 	 * Fonction utilitaire indiquant si une case est valide
