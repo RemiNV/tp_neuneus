@@ -43,12 +43,18 @@ public abstract class Neuneu extends AbsNourriture {
 		neuneu.energie -= ENERGIE_REPRODUCTION;
 		this.energie -= ENERGIE_REPRODUCTION;
 		
-		return randomNeuneu(loft, ENERGIE_DEPART, posX, posY);
+		Neuneu resultat = randomNeuneu(loft, ENERGIE_DEPART, posX, posY);
+		
+		System.out.println("Le " + this.toString() + " se reproduit avec " + neuneu.toString() + " et donne " + resultat.toString());
+		
+		return resultat;
 	}
 	
 	@Override
 	public void supprimer() {
 		super.supprimer();
+		
+		System.out.println("Le neuneu " + this.toString() + " est mort !");
 		
 		// Suppression aussi de la liste des neuneus du loft
 		loft.getNeuneus().remove(this);
@@ -60,7 +66,7 @@ public abstract class Neuneu extends AbsNourriture {
 	 * @return true sur le neuneu peut manger cet objet
 	 */
 	public boolean peutManger(AbsNourriture nourriture) {
-		return nourriture instanceof Nourriture;
+		return nourriture instanceof Nourriture && nourriture != this;
 	}
 	
 	public void cycleDeVie() {
@@ -73,6 +79,9 @@ public abstract class Neuneu extends AbsNourriture {
 		
 		// Se reproduire
 		this.seReproduire();
+		
+		if(energie <= 0)
+			this.supprimer();
 	}
 	
 	/**
@@ -123,5 +132,13 @@ public abstract class Neuneu extends AbsNourriture {
 		
 		return resNeuneu;
 	}
-
+	
+	public abstract String getNomNeuneu();
+	
+	@Override
+	public String toString() {
+		return "Neuneu " + getNomNeuneu() + "(" + super.toString() + ")" + ", NRJ " + this.energie;
+	}
+	
+	
 }

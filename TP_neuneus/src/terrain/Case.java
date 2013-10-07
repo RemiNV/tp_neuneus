@@ -1,5 +1,6 @@
 package terrain;
 
+import java.awt.Graphics;
 import java.util.LinkedHashSet;
 
 import models.AbsNourriture;
@@ -42,5 +43,11 @@ public class Case {
 		}
 		
 		return null;
+	}
+	
+	public void dessiner(Graphics g, int x, int y) {
+		for(AbsNourriture n : contenu) {
+			n.dessiner(g, x + Loft.PADDING, y + Loft.PADDING);
+		}
 	}
 }

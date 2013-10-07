@@ -1,5 +1,8 @@
 package models.impl;
 
+import java.awt.Graphics;
+import java.awt.Image;
+
 import terrain.Loft;
 import models.AbsNourriture;
 import models.Neuneu;
@@ -47,6 +50,8 @@ public class NeuneuErratique extends Neuneu {
 				if(pourcentageConsomme > nourr.getPourcentageConsommation())
 					pourcentageConsomme = nourr.getPourcentageConsommation();
 				
+				System.out.println("Le neuneu " + this.toString() + " mange une quantité " + pourcentageConsomme + " de " + nourr.toString());
+				
 				this.energie += nourr.seFaireManger(pourcentageConsomme); // Consommation
 				
 				return; // On ne mange qu'une chose par tour
@@ -56,11 +61,16 @@ public class NeuneuErratique extends Neuneu {
 	}
 
 	@Override
-	public void dessiner() {
-		// TODO : remplir
+	public void dessiner(Graphics g, int x, int y) {
+		Image img = getImage("imgNeuneuVorace.png", Loft.TAILLE_CONTENU_CASE, Loft.TAILLE_CONTENU_CASE);
+		
+		g.drawImage(img, x, y, null);
 	}
 	
-	
+	@Override
+	public String getNomNeuneu() {
+		return "Erratique";
+	}
 	
 
 }

@@ -1,5 +1,8 @@
 package models.impl;
 
+import java.awt.Graphics;
+import java.awt.Image;
+
 import terrain.Loft;
 import models.AbsNourriture;
 
@@ -42,8 +45,15 @@ public class NeuneuVorace extends NeuneuErratique {
 	}
 	
 	@Override
-	public void dessiner() {
-		// TODO : remplir
+	public void dessiner(Graphics g, int x, int y) {
+		Image img = getImage("imgNeuneuVorace.png", Loft.TAILLE_CONTENU_CASE, Loft.TAILLE_CONTENU_CASE);
+		
+		g.drawImage(img, x, y, null);
+	}
+	
+	@Override
+	public String getNomNeuneu() {
+		return "Vorace";
 	}
 
 }
